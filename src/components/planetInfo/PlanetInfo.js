@@ -1,16 +1,17 @@
 import { Component } from 'react';
 
-import SwapiService from '../../services/SwapiService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
+import SwapiService from '../../services/SwapiService';
+import PlanetList from '../planetList/PlanetList';
 
 import './planetInfo.scss';
 
 class PlanetInfo extends Component {
 	state = {
 		planet: null,
-		resident: null,
+		charList: [],
 		loading: false,
 		error: false,
 	};
@@ -19,12 +20,13 @@ class PlanetInfo extends Component {
 
 	componentDidMount() {
 		this.updatePlanet();
+
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.planetName !== prevProps.planetName) {
 			this.updatePlanet();
-			// this.updateResident();
+			this.updateResident();
 		}
 	}
 
@@ -37,17 +39,17 @@ class PlanetInfo extends Component {
 		this.onPlanetLoading();
 
 		this.swapiService.getPlanet(planetName).then(this.onPlanetLoaded).catch(this.onError);
-		// this.swapiService.getAllResidents().then(this.onPlanetLoaded).catch(this.onError);
 	};
 
-	// updateResident = () => {
-	// 	const { resident } = this.props;
-	// 	if (!resident) {
-	// 		return;
-	// 	}
-	// 	this.onPlanetLoading();
-	// 	this.swapiService.getResident(resident).then(this.onPlanetLoaded).catch(this.onError);
-	// };
+	updateResident = (urls) => {
+		this.state.charList.map(async (urls) => {
+			const response = await fetch(urls);
+			const data = await response.json();
+			this.setState({
+				charList: data,
+			});
+		});
+	};
 
 	onPlanetLoading = () => {
 		this.setState({
@@ -57,7 +59,6 @@ class PlanetInfo extends Component {
 
 	onPlanetLoaded = (planet) => {
 		this.setState({ planet, loading: false, error: false });
-		// console.log(resident);
 	};
 
 	onError = () => {
@@ -69,7 +70,6 @@ class PlanetInfo extends Component {
 
 	render() {
 		const { planet, loading, error } = this.state;
-
 		const skeleton = planet || loading || error ? null : <Skeleton />;
 		const errorMessage = error ? <ErrorMessage /> : null;
 		const spinner = loading ? <Spinner /> : null;
@@ -87,7 +87,14 @@ class PlanetInfo extends Component {
 }
 
 const View = ({ planet }) => {
-	const { name, created, climate, residents, population } = planet;
+	const { name, created, climate, diameter, gravity, orbitalPeriod, rotationPeriod, population, residents, terrain, surfaceWater } =
+		planet;
+
+	const formatDate = new Date(created).toLocaleString();
+
+	const formatNumber = (num) => {
+		return isNaN(num) ? 'unknown' : new Intl.NumberFormat('ru-RU').format(num);
+	};
 
 	return (
 		<>
@@ -96,16 +103,50 @@ const View = ({ planet }) => {
 					<div className="planet__info-name">{name}</div>
 				</div>
 			</div>
-			<div className="planet__descr"> {population} </div>
-			<div> {created}</div>
-			<div> {climate}</div>
+			<div className="planet__descr">
+				<div>
+					<span>Created: </span> {formatDate}
+				</div>
+				<div>
+					<span>Climate: </span> {climate}
+				</div>
+				<div>
+					<span>Diameter: </span> {formatNumber(diameter)}
+				</div>
+				<div>
+					<span>Gravity: </span>
+					{gravity === 'N/A' ? 'unknown' : gravity}
+				</div>
+				<div>
+					<span>Rotation period: </span>
+					{rotationPeriod}
+				</div>
+				<div>
+					<span>Orbital period: </span> {orbitalPeriod}
+				</div>
+				<div>
+					<span>Population: </span> {formatNumber(population)}
+				</div>
+				<div>
+					<span>Terrain: </span> {terrain}
+				</div>
+				<div>
+					<span>Surface Water: </span>
+					{surfaceWater}
+				</div>
+			</div>
+
 			<div className="planet__residents">Residents:</div>
 			<ul className="planet__residents-list">
-				{/* {residents.length === 0 ? 'there is no residents on this planet' : null} */}
+				{residents.length === 0 ? 'there are no residents on this planet' : null}
 				{residents.map((item, i) => {
-					// console.log(item);
+					console.log(item);
 					return (
-						<li	className="planet__residents-item" key={i}>{residents[i]}</li>
+						<li className="planet__residents-item" key={i}>
+							<a href={item} target="_blank" rel="noreferrer">
+								{item}
+							</a>
+						</li>
 					);
 				})}
 			</ul>
@@ -114,4 +155,3 @@ const View = ({ planet }) => {
 };
 
 export default PlanetInfo;
-

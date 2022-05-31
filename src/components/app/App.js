@@ -6,13 +6,11 @@ import PlanetList from '../planetList/PlanetList';
 class App extends Component {
 	state = {
 		selectedPlanet: null,
-		selectedResident: null,
 	};
 
-	onPlanetSelected = (name, resi) => {
+	onPlanetSelected = (name) => {
 		this.setState({
 			selectedPlanet: name,
-			selectedResident: resi
 		});
 	};
 
@@ -22,8 +20,12 @@ class App extends Component {
 				<AppHeader />
 				<main>
 					<div className="planet__content">
-						<PlanetList onPlanetSelected={this.onPlanetSelected} />
-						<PlanetInfo planetName={this.state.selectedPlanet} residentUrl={ this.state.selectedResident}/>
+						<PlanetList
+							onPlanetSelected={this.onPlanetSelected}
+						/>
+						<PlanetInfo
+							planetName={this.state.selectedPlanet}
+						/>
 					</div>
 				</main>
 			</div>

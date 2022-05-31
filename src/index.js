@@ -2,22 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/App';
 import './style/style.scss';
-import SwapiService from './services/SwapiService';
 
-// const swapiModule = new SwapiModule();
-// console.log(swapiModule.getPlanets());
-const swapiService = new SwapiService();
-// swapiService.getAllCharacters().then((res) => res.data.results.forEach(item => console.log(item.name)));
-// swapiService.getAllPlanets().then((res) => console.log('getAllPlanets',res));
-// swapiService.getPlanet().then((res) => console.log('getPlanet', res));
-// swapiService.getAllResidents().then((res) => console.log('getAllResidents', res));
-// swapi.get('https://swapi.dev/api/people/?page=2').then((result) => {console.log(result)});
-
+//! тестовые выводы данных в консоль
+// import SwapiService from './services/SwapiService';
+// const swapiService = new SwapiService();
+// swapiService.getAllPlanets().then((res) => console.log('getAllPlanets', res));
+// swapiService.getPlanetsCount().then((res) => console.log('getPlanetsCount', res));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
+	//! Stricter Strict Mode: In the future, React will provide a feature that lets components preserve state between unmounts. To prepare for it, React 18 introduces a new development-only check to Strict Mode. React will automatically unmount and remount every component, whenever a component mounts for the first time, restoring the previous state on the second mount. If this breaks your app, consider removing Strict Mode until you can fix the components to be resilient to remounting with existing state.
+	// <React.StrictMode>
+	<App />
+	// </React.StrictMode>
 );
-

@@ -7,6 +7,7 @@
 		grid-template-columns: 2fr 1fr;
 		column-gap: 25px;
 		align-items: start;
+		text-align: center;
 	}
 	&__grid {
 		display: grid;
@@ -24,6 +25,8 @@
 		padding: 15px;
 		cursor: pointer;
 		transition: 0.3s transform;
+		text-align: start;
+
 		p {
 			font-family: 'Roboto Condensed', sans-serif;
 			color: $text-color;
@@ -43,6 +46,7 @@
 		color: $main-color;
 		font-size: 20px;
 		line-height: 29px;
+		font-weight: 400;
 		// text-transform: uppercase;
 	}
 }

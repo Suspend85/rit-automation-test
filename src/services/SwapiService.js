@@ -1,35 +1,44 @@
+import nextId from 'react-id-generator';
+
 class SwapiService {
 	_apiBase = 'https://swapi.dev/api/';
-	// _apiKey = 'apikey=a3f3e1bb52e9dfbb1dcd77116fe51560';
 
+	// асинхронный запрос для получения объекта.
 	getResourse = async (url) => {
 		let res = await fetch(url);
-		// console.log(res);
 		if (!res.ok) {
 			throw new Error(`Could not fetch ${url}, status ${res.status}`);
 		}
-
 		return await res.json();
 	};
 
-	getAllPlanets = async () => {
+	// получаем кол-во планет.
+	getPlanetsCount = async () => {
 		const res = await this.getResourse(`${this._apiBase}planets/`);
+		return res.count;
+	};
+	
+	//получаем объект с планетами постранично.
+	getAllPlanets = async (page = 1) => {
+		const res = await this.getResourse(`${this._apiBase}planets/?page=${page}`);
 		return res.results.map(this._transformPlanet);
 	};
-	getPlanet = async (name) => {
-		const res = await this.getResourse(`${this._apiBase}planets/1`);
-		// return this._transformPlanet(res.results.name);
+
+	// получаем 1 планету по определенному номеру (id)
+	getPlanet = async (id) => {
+		const res = await this.getResourse(`${this._apiBase}planets/${id}`);
 		return this._transformPlanet(res);
 	};
-
+	
+	// для будущей реализации. получаем всех жителей планеты.
 	getAllResidents = async () => {
 		const res = await this.getResourse(`${this._apiBase}people/`);
 		return res.results.map(this._transformResident);
 	};
 
-	getResident = async () => {
-		const res = await this.getResourse(`${this._apiBase}people/1`);
-		// console.log(res);
+	// для будущей реализации. получаем 1го жителя.
+	getResident = async (id) => {
+		const res = await this.getResourse(`${this._apiBase}people/${id}`);
 		return this._transformResident(res);
 	};
 
@@ -47,9 +56,9 @@ class SwapiService {
 		};
 	};
 
+	// преобразуем данные из полученного объекта.
 	_transformPlanet = (planet) => {
 		return {
-			// id: planet.id,
 			name: planet.name,
 			climate: planet.climate,
 			created: planet.created,

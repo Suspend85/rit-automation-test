@@ -4,21 +4,21 @@
 
 @font-face {
 	font-family: 'StarJedi';
-	src: url(../fonts/StarJedi.eot?) format('eot'), url(../fonts/StarJedi.woff) format('woff'),
-		url(../fonts/StarJedi.ttf) format('truetype');
+	src: 
+		 url(../fonts/SoloistLaser.eot?) format('eot'),
+		 url(../fonts/SoloistLaser.woff) format('woff'),
+		 url(../fonts/SoloistLaser.ttf) format('truetype');
 	font-weight: 700;
 }
 
 * {
-    // font-family: 'StarJedi', sans-serif;
-    // font-family: "Roboto Condensed", sans-serif;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
 body {
-    color: $text-color;
+	color: $text-color;
 	background-color: $dark;
 }
 
@@ -32,12 +32,11 @@ dl {
 
 h1,
 h2,
-
 h4,
 h5,
 h6 {
-    font-family: "Roboto Condensed", sans-serif;
-    color: $text-color;
+	font-family: 'Roboto Condensed', sans-serif;
+	color: $text-color;
 	margin: 0;
 }
 h3 {
@@ -57,6 +56,10 @@ a {
 p {
 	margin: 0;
 	padding: 0;
+}
+
+span {
+	font-weight: bold;
 }
 
 input::-webkit-outer-spin-button,
@@ -82,7 +85,6 @@ input::-webkit-inner-spin-button {
 main {
 	margin-top: 50px;
 	position: relative;
-	// background-color: $dark;
 }
 
 .pulse {
