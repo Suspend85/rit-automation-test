@@ -19,9 +19,6 @@ class PlanetList extends Component {
 	swapiService = new SwapiService();
 
 	componentDidMount() {
-		console.log('componentDidMount');
-		// Math.ceil()
-
 		this.onPlanetsRequest();
 		window.addEventListener('scroll', this.onScroll);
 	}
@@ -36,16 +33,13 @@ class PlanetList extends Component {
 				window.removeEventListener('scroll', this.getPageBottom);
 			} else {
 				this.onPlanetsRequest(this.state.planetPage);
-				console.log('onPlanetsRequest scroll');
 			}
 		}
 	};
 
 	onPlanetsRequest = (planetPage) => {
-		console.log('onPlanetsRequest');
 		this.onPlanetListLoading();
 		this.swapiService.getAllPlanets(planetPage).then(this.onPlanetListLoaded).catch(this.onError);
-		// this.swapiService.getPlanetsCount().then(this.setState({}));
 	};
 
 	onPlanetListLoading = () => {
@@ -81,7 +75,6 @@ class PlanetList extends Component {
 	};
 
 	renderItems(arr) {
-		console.log('renderItems');
 		const items = arr.map((item, i) => {
 			return (
 				<li className="planet__item" key={item.name} onClick={() => this.props.onPlanetSelected(i + 1)}>
@@ -146,8 +139,7 @@ class PlanetList extends Component {
 					className="button button__main button__long"
 					disabled={newItemLoading}
 					style={{ display: planetEnded ? 'none' : 'inline-block' }}
-					onClick={() => this.onPlanetsRequest(planetPage)}
-				>
+					onClick={() => this.onPlanetsRequest(planetPage)}>
 					<div className="inner">Load more</div>
 				</button>
 			</div>

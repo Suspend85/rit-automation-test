@@ -1,9 +1,7 @@
 @import '../../style/variables.scss';
 
-
 .app {
 	font-family: 'StarJedi', sans-serif;
-	// background-color: $dark;
 	&__header {
 		align-items: baseline;
 		display: flex;
@@ -11,9 +9,7 @@
 	}
 	&__title {
 		font-family: inherit;
-		// font-weight: bold;
 		font-size: 28px;
-		// text-shadow: 2px 2px 2px $text-color;
 		line-height: 37px;
 		span {
 			color: $main-color;

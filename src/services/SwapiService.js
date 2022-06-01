@@ -1,5 +1,3 @@
-import nextId from 'react-id-generator';
-
 class SwapiService {
 	_apiBase = 'https://swapi.dev/api/';
 
@@ -17,7 +15,7 @@ class SwapiService {
 		const res = await this.getResourse(`${this._apiBase}planets/`);
 		return res.count;
 	};
-	
+
 	//получаем объект с планетами постранично.
 	getAllPlanets = async (page = 1) => {
 		const res = await this.getResourse(`${this._apiBase}planets/?page=${page}`);
@@ -29,7 +27,7 @@ class SwapiService {
 		const res = await this.getResourse(`${this._apiBase}planets/${id}`);
 		return this._transformPlanet(res);
 	};
-	
+
 	// для будущей реализации. получаем всех жителей планеты.
 	getAllResidents = async () => {
 		const res = await this.getResourse(`${this._apiBase}people/`);

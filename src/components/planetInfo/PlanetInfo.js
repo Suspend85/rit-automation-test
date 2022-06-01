@@ -4,7 +4,6 @@ import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
 import SwapiService from '../../services/SwapiService';
-import PlanetList from '../planetList/PlanetList';
 
 import './planetInfo.scss';
 
@@ -20,7 +19,6 @@ class PlanetInfo extends Component {
 
 	componentDidMount() {
 		this.updatePlanet();
-
 	}
 
 	componentDidUpdate(prevProps) {
@@ -140,7 +138,6 @@ const View = ({ planet }) => {
 			<ul className="planet__residents-list">
 				{residents.length === 0 ? 'there are no residents on this planet' : null}
 				{residents.map((item, i) => {
-					console.log(item);
 					return (
 						<li className="planet__residents-item" key={i}>
 							<a href={item} target="_blank" rel="noreferrer">
